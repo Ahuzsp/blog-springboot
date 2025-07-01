@@ -1,6 +1,6 @@
 package com.ums.service;
 
-import com.ums.dto.AdminUserRegisterDTO;
+import com.ums.dto.AdminUserRegisterDto;
 import com.ums.pojo.AdminUser;
 import com.ums.pojo.Menu;
 
@@ -11,13 +11,13 @@ public interface AdminService {
 
     List<AdminUser> adminUserList();
 
-    AdminUser register(AdminUserRegisterDTO adminUserDTO);
+    AdminUser register(AdminUserRegisterDto adminUserDTO);
 
     AdminUser findByName(String username);
 
-    void deleteById(Long id);
+    void deleteById(Integer id);
 
-    void deleteBatch(List<Long> ids);
+    void deleteBatch(List<Integer> ids);
 
-    void updateLoginTime(Long id);
+    void updateLoginTime(Integer id);
 }

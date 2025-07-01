@@ -1,7 +1,7 @@
 package com.ums.controller;
 
 import com.ums.common.CommonResult;
-import com.ums.dto.AdminUserRegisterDTO;
+import com.ums.dto.AdminUserRegisterDto;
 import com.ums.pojo.AdminUser;
 import com.ums.pojo.Menu;
 import com.ums.service.AdminService;
@@ -10,7 +10,6 @@ import com.ums.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +40,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public CommonResult<Object> delete(@PathVariable Long id) {
+    public CommonResult<Object> delete(@PathVariable Integer id) {
         try {
             adminService.deleteById(id);
             return CommonResult.success(null);
@@ -52,7 +51,7 @@ public class AdminController {
 
     // 批量删除
     @PostMapping("/deleteBatch")
-    public CommonResult<Object> deleteBatch(@RequestBody Map<String, List<Long>> idsmap) {
+    public CommonResult<Object> deleteBatch(@RequestBody Map<String, List<Integer>> idsmap) {
         try {
             adminService.deleteBatch(idsmap.get("ids"));
             return CommonResult.success(null);
@@ -64,7 +63,7 @@ public class AdminController {
 
     // 注册用户
     @PostMapping("/register")
-    public CommonResult<AdminUser> register(@RequestBody AdminUserRegisterDTO adminUserDTO) {
+    public CommonResult<AdminUser> register(@RequestBody AdminUserRegisterDto adminUserDTO) {
         AdminUser user = adminService.register(adminUserDTO);
         if (user == null) {
             return CommonResult.failed("注册失败");

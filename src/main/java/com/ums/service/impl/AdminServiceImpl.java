@@ -1,6 +1,6 @@
 package com.ums.service.impl;
 
-import com.ums.dto.AdminUserRegisterDTO;
+import com.ums.dto.AdminUserRegisterDto;
 import com.ums.mapper.AdminMapper;
 import com.ums.pojo.AdminUser;
 import com.ums.pojo.Menu;
@@ -30,7 +30,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public AdminUser register(AdminUserRegisterDTO adminUserDTO) {
+    public AdminUser register(AdminUserRegisterDto adminUserDTO) {
         AdminUser adminUser = new AdminUser();
         BeanUtils.copyProperties(adminUserDTO, adminUser);
         adminUser.setStatus(1);
@@ -53,17 +53,17 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(Integer id) {
         adminMapper.deleteById(id);
     }
 
     @Override
-    public void deleteBatch(List<Long> ids) {
+    public void deleteBatch(List<Integer> ids) {
         adminMapper.deleteBatch(ids);
     }
 
     @Override
-    public void updateLoginTime(Long id) {
+    public void updateLoginTime(Integer id) {
         adminMapper.updateLoginTime(id);
     }
 }

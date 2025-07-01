@@ -3,7 +3,7 @@ package com.ums.dto;
 import lombok.Data;
 
 @Data
-public class AdminUserRegisterDTO {
+public class AdminUserRegisterDto {
     private String username;
     private String password;
     private String icon;

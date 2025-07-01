@@ -2,6 +2,7 @@ package com.ums.interceptors;
 
 import com.ums.common.ResultCode;
 import com.ums.utils.JwtUtil;
+import com.ums.utils.ThreadLocalUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         try {
             String token = authorization.substring(7);
             Map<String, Object> claims = JwtUtil.parseToken(token);
+            ThreadLocalUtil.set(claims);
             return true;
         } catch (Exception e) {
             throw new UnauthorizedException(ResultCode.UNAUTHORIZED.getMessage());

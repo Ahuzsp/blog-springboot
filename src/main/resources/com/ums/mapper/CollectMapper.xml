@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ums.mapper.CollectMapper">
+    <insert id="collectArticle" parameterType="com.ums.pojo.Collect">
+        insert into collect (articleId, userId, collectTime, createTime) values
+        (#{articleId}, #{userId}, now(), #{createTime})
+    </insert>
+</mapper>
