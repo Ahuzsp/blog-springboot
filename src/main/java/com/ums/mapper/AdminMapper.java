@@ -14,14 +14,15 @@ public interface AdminMapper {
     List<AdminUser> adminUserList();
 
     void register(AdminUser adminUser);
+
     @Select("select * from ums_admin where username=#{username}")
     AdminUser findByName(String username);
 
     @Delete("delete from ums_admin where id=#{id}")
-    void deleteById(Long id);
+    void deleteById(Integer id);
 
-    void deleteBatch(List<Long> ids);
+    void deleteBatch(List<Integer> ids);
 
     @Update("update ums_admin set login_time=now() where id=#{id}")
-    void updateLoginTime(Long id);
+    void updateLoginTime(Integer id);
 }

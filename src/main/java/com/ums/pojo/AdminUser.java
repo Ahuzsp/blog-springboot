@@ -1,13 +1,15 @@
 package com.ums.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
+//@JsonInclude(JsonInclude.Include.NON_NULL) // 不返回null的字段
 public class AdminUser {
-    private Long id;
+    private Integer id;
     private String username;
     @JsonIgnore
     private String password;

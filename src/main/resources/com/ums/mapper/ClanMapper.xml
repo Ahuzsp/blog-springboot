@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ums.mapper.ClanMapper">
+
+    <insert id="addBatch" parameterType="java.util.List">
+        insert into clan (
+        id,
+        name, parentId, spouse, spouseGrave, address,
+        briefIntroduction, fullInfo, gender, generation,
+        graveAddress, isDeceased, isSpouseDeceased, createTime, updateTime
+        )
+        values
+        <foreach collection="clanList" item="item" index="index" separator=",">
+            (
+             #{item.id},
+            #{item.name}, #{item.parentId}, #{item.spouse},
+            #{item.spouseGrave}, #{item.address}, #{item.briefIntroduction},
+            #{item.fullInfo}, #{item.gender}, #{item.generation},
+            #{item.graveAddress}, #{item.isDeceased}, #{item.isSpouseDeceased},
+            #{item.createTime}, #{item.updateTime}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ums.mapper.CommentMapper">
+    <select id="getComments" resultType="com.ums.pojo.Comment">
+        SELECT c.id, c.content, c.parentId, c.articleId, c.imgList,
+               c.createTime, c.updateTime, c.status,
+               u1.id as "commenterUserInfo.id",
+               u1.username as "commenterUserInfo.username",
+               u1.email as "commenterUserInfo.email",
+               u2.id as "repliedToUserInfo.id",
+               u2.username as "repliedToUserInfo.username",
+               u2.email as "repliedToUserInfo.email"
+        FROM comment c
+                 LEFT JOIN ums_admin u1 ON c.userId = u1.id
+                 LEFT JOIN ums_admin u2 ON c.repliedUserId = u2.id
+        WHERE c.articleId = #{articleId}
+        ORDER BY c.createTime;
+    </select>
+    <insert id="addComment" parameterType="com.ums.pojo.Comment">
+        insert into comment (userId, repliedUserId, articleId, parentId, content, imgList, createTime, updateTime, status)
+        values(#{userId}, #{repliedUserId}, #{articleId}, #{parentId}, #{content}, #{imgList}, now(), now(), #{status})
+    </insert>
+    <delete id="deleteComment">
+        delete from comment where id = ${commentId} or parentId = ${commentId}
+    </delete>
+</mapper>

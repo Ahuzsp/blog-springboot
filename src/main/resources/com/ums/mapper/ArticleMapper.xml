@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ums.mapper.ArticleMapper">
+    <select id="getArticleList" resultType="com.ums.pojo.Article">
+        SELECT * FROM article
+        <where>
+            <if test="category != null or userId != null or (keyword != null and keyword != '')">
+                <if test="category != null">
+                    AND category = #{category}
+                </if>
+                <if test="userId != null">
+                    AND userId = #{userId}
+                </if>
+                <if test="keyword != null and keyword != ''">
+                    AND (articleTitle LIKE CONCAT('%',#{keyword},'%')
+                    OR description LIKE CONCAT('%',#{keyword},'%')
+                    OR mdValue LIKE CONCAT('%',#{keyword},'%')
+                    )
+                </if>
+            </if>
+            <!-- 无参数时默认添加1=1防止全表扫描 -->
+            <if test="category == null and userId == null and (keyword == null or keyword == '')">
+                1=1
+            </if>
+        </where>
+    </select>
+
+    <select id="getArticleListByIds" resultType="com.ums.pojo.Article">
+        select * from article where articleId in
+        <foreach collection="articleIds" item="articleId"  open="(" close=")" separator=",">
+            #{articleId}
+        </foreach>
+    </select>
+
+
+    <insert id="addArticle" useGeneratedKeys="true" keyProperty="articleId"
+            parameterType="com.ums.pojo.Article">
+        insert into article (userId, articleTitle, description, mdValue, category,
+          commentCount, readCount, likeCount, collectCount, cover, createTime, updateTime) values
+            (#{userId}, #{articleTitle}, #{description}, #{mdValue},
+             #{category}, #{commentCount}, #{readCount}, #{likeCount},
+             #{collectCount}, #{cover}, now(), now()
+            )
+    </insert>
+
+    <update id="updateArticle" parameterType="com.ums.pojo.Article">
+        update article
+        set userId = #{userId},
+        articleTitle = #{articleTitle},
+        description = #{description},
+        mdValue = #{mdValue},
+        category = #{category},
+        commentCount = #{commentCount},
+        readCount = #{readCount},
+        likeCount = #{likeCount},
+        collectCount = #{collectCount},
+        cover = #{cover},
+        createTime = #{createTime},
+        updateTime = now()
+        where articleId = #{articleId};
+    </update>
+</mapper>

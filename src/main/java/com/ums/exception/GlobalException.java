@@ -19,6 +19,6 @@ public class GlobalException {
     @ExceptionHandler(Exception.class)
     public CommonResult<String> handleAllExceptions(Exception e) {
         e.printStackTrace();
-        return CommonResult.failed("服务器内部错误");
+        return CommonResult.failed("服务器内部错误，" + e.getMessage());
     }
 }
